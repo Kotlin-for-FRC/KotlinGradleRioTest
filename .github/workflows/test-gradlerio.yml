@@ -1,4 +1,4 @@
-name: Artifactory Nightly Cleanup
+name: Nightly GradleRio Test
 
 on:
   workflow_dispatch:
