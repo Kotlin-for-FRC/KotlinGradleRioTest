@@ -1,0 +1,21 @@
+name: Artifactory Nightly Cleanup
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 2 * * *'
+
+jobs:
+  test-gradlerio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: git clone https://github.com/wpilibsuite/GradleRIO.git
+      - run: rm GradleRIO/gradle.properties
+      - run: touch GradleRIO/gradle.properties
+      - run: echo "version = 2024kt" >> GradleRIO/gradle.properties
+      - run: ./gradlew publishToMavenLocal
+        working-directory: GradleRIO
+      - run: ./gradlew build
